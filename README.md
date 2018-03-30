@@ -4,7 +4,6 @@
 >小程序版One Team 基于[wepy框架](https://tencent.github.io/wepy/index.html)开发
 
 ## 说明
----------
 1.安装依赖
 ```bash
 npm install

@@ -19,7 +19,7 @@ navigator {
 <template>
   <view class="container">
     <view class="one-team-logo">
-      <image mode="aspectFit" src="{{logo}}" /></image>
+        <image mode="aspectFit" src="{{logo}}" /></image>
     </view>
     <view class="container-bd">
       <div class="list-cells">
