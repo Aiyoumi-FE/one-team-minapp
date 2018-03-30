@@ -1,101 +1,104 @@
 <style lang="less">
 .one-team-logo {
-  width: 168rpx;
-  height: 168rpx;
-  margin: 124rpx auto 60rpx;
-  image {
-    width: 100%;
-    height: 100%;
-  }
+    width: 168rpx;
+    height: 168rpx;
+    margin: 124rpx auto 60rpx;
+    image {
+        width: 100%;
+        height: 100%;
+    }
 }
 
 .navigator-hover {
-  color: #09f;
-  opacity: 1;
-}
-.forget-code {
-
+    color: #09f;
+    opacity: 1;
 }
 </style>
 <template>
-  <view class="container">
-    <view class="one-team-logo">
-      <image mode="aspectFit" src="{{logo}}" /></image>
+    <view class="container">
+        <view class="one-team-logo">
+            <image mode="aspectFit" src="{{logo}}" /></image>
+        </view>
+        <view class="container-bd">
+            <div class="list-cells">
+                <a class="list-cell" href="javascript:;">
+                    <div class="list-cell__bd">
+                        <input type="tel" value="{{email}}" placeholder="邮箱" maxlength="11" placeholder-class="placeholder" class="input" @input="inputEmail" />
+                    </div>
+                </a>
+                <a class="list-cell" href="javascript:;">
+                    <div class="list-cell__bd">
+                        <input password value="{{pwd}}" placeholder="密码" placeholder-class="placeholder" class="input" @input="inputPwd" />
+                    </div>
+                </a>
+            </div>
+            <navigator class="forget-code colorPrimary" hover-class="navigator-hover" url="">忘记登录密码</navigator>
+            <a href="javascript:;" class="btn btn_primary mt40 mb20" @tap="submit">登录</a>
+            <p>还没有加入One Team?
+                <navigator style="display: inline" class="colorPrimary" hover-class="navigator-hover" url="/pages/user/register/index">点击这里</navigator>加入吧！</p>
+        </view>
+        <toast />
     </view>
-    <view class="container-bd">
-      <div class="list-cells">
-        <a class="list-cell" href="javascript:;">
-          <div class="list-cell__bd">
-            <input type="tel" value="{{email}}" placeholder="邮箱" maxlength="11" placeholder-class="placeholder" class="input" @input="inputEmail" />
-          </div>
-        </a>
-        <a class="list-cell" href="javascript:;">
-          <div class="list-cell__bd">
-            <input password type="text" value="{{pwd}}" placeholder="密码" placeholder-class="placeholder" class="input" @input="inputPwd" />
-          </div>
-        </a>
-      </div>
-      <navigator class="forget-code colorPrimary" hover-class="navigator-hover" url="">忘记登录密码</navigator>
-      <a href="javascript:;" class="btn btn_primary mt40 mb20" @tap="submit">登录</a>
-      <p>还没有加入One Team? <navigator style="display: inline" class="colorPrimary" hover-class="navigator-hover" url="/pages/user/register/index">点击这里</navigator>加入吧！</p>
-    </view>
-    <toast />
-  </view>
 </template>
 <script>
-  import wepy from 'wepy'
-  import {checkEmail, checkPwd} from '@/libs/util.js'
-  import Toast from 'wepy-com-toast'
-  // import {GET} from '@/libs/api.js'
-  export default class Login extends wepy.page {
+import wepy from 'wepy'
+import { checkEmail, checkPwd } from '@/libs/util.js'
+import Toast from 'wepy-com-toast'
+// import {GET} from '@/libs/api.js'
+export default class Login extends wepy.page {
     config = {
-      navigationBarTitleText: '登录'
+        navigationBarTitleText: '登录'
     }
 
     components = {
-      toast: Toast
+        toast: Toast
     }
 
     data = {
-      email: '',
-      pwd: '',
-      logo: '../../../images/logo.jpg'
+        email: '',
+        pwd: '',
+        logo: '../../../images/logo.jpg'
     }
 
     methods = {
-      inputEmail(e) {
-        this.email = e.detail.value
-      },
-      inputPwd(e) {
-        this.pwd = e.detail.value
-      },
-      submit(e) {
-        console.log(checkEmail(this.email))
-        console.log(checkPwd(this.pwd))
-
-        let promise = this.$invoke('toast', 'show', {
-          title: '请输入正确的邮箱'
-          // img: 'https://raw.githubusercontent.com/kiinlam/wetoast/master/images/star.png'
-        })
-
-        promise.then((d) => {
-          console.log('toast done')
-        })
-      }
-      // request () {
-      //   let self = this
-      //   let i = 10
-      //   let map = ['MA==', 'MQo=', 'Mg==', 'Mw==', 'NA==', 'NQ==', 'Ng==', 'Nw==', 'OA==', 'OQ==']
-      //   while (i--) {
-      //     wepy.request({
-      //       url: 'https://www.madcoder.cn/tests/sleep.php?time=1&t=css&c=' + map[i] + '&i=' + i,
-      //       success: function (d) {
-      //         self.netrst += d.data + '.'
-      //         self.$apply()
-      //       }
-      //     })
-      //   }
-      // }
+        inputEmail(e) {
+            this.email = e.detail.value
+        },
+        inputPwd(e) {
+            this.pwd = e.detail.value
+        },
+        submit(e) {
+            let toastText = this.check()
+            if (toastText) {
+                this.$invoke('toast', 'show', {
+                    title: toastText
+                })
+                return false
+            }
+        }
+        // request () {
+        //   let self = this
+        //   let i = 10
+        //   let map = ['MA==', 'MQo=', 'Mg==', 'Mw==', 'NA==', 'NQ==', 'Ng==', 'Nw==', 'OA==', 'OQ==']
+        //   while (i--) {
+        //     wepy.request({
+        //       url: 'https://www.madcoder.cn/tests/sleep.php?time=1&t=css&c=' + map[i] + '&i=' + i,
+        //       success: function (d) {
+        //         self.netrst += d.data + '.'
+        //         self.$apply()
+        //       }
+        //     })
+        //   }
+        // }
     }
-  }
+    check() {
+        let toastText
+        if (!checkEmail(this.email)) {
+            toastText = this.email ? '邮箱错误，请重新输入' : '请输入邮箱'
+        } else if (checkPwd(this.pwd)) {
+            toastText = this.pwd ? '请输入6位以上数字字母组合密码' : '请输入密码'
+        }
+        return toastText
+    }
+}
 </script>

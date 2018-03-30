@@ -12,79 +12,79 @@ const store = configStore()
 setStore(store)
 
 export default class extends wepy.app {
-  config = {
-    pages: [
-      // 'pages/logs/index',
-      // 'pages/my/index',
-      'pages/user/register/index',
-      'pages/user/login/index',
-      'pages/weekly/list',
-      'pages/index'
-    ],
-    window: {
-      backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
-    },
-    tabBar: {
-      color: '#222',
-      selectedColor: '#0099FF',
-      backgroundColor: '#fff',
-      list: [{
-        pagePath: 'pages/index',
-        text: '首页',
-        iconPath: './assets/images/cat.png',
-        selectedIconPath: './assets/images/cat.png'
-      }, {
-        pagePath: 'pages/index',
-        text: '通知',
-        iconPath: './assets/images/cat.png'
-      }, {
-        pagePath: 'pages/index',
-        text: '我的',
-        iconPath: './assets/images/cat.png'
-      }]
+    config = {
+        pages: [
+            // 'pages/logs/index',
+            // 'pages/my/index',
+            'pages/user/register/index',
+            'pages/user/login/index',
+            'pages/weekly/list',
+            'pages/index'
+        ],
+        window: {
+            backgroundTextStyle: 'light',
+            navigationBarBackgroundColor: '#fff',
+            navigationBarTitleText: 'WeChat',
+            navigationBarTextStyle: 'black'
+        },
+        tabBar: {
+            color: '#222',
+            selectedColor: '#0099FF',
+            backgroundColor: '#fff',
+            list: [{
+                pagePath: 'pages/index',
+                text: '首页',
+                iconPath: './assets/images/cat.png',
+                selectedIconPath: './assets/images/cat.png'
+            }, {
+                pagePath: 'pages/index',
+                text: '通知',
+                iconPath: './assets/images/cat.png'
+            }, {
+                pagePath: 'pages/index',
+                text: '我的',
+                iconPath: './assets/images/cat.png'
+            }]
+        }
     }
-  }
 
-  globalData = {
-    userInfo: null
-  }
-
-  constructor () {
-    super()
-    this.use('requestfix')
-  }
-
-  onLaunch() {
-    this.testAsync()
-  }
-
-  sleep (s) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve('promise resolved')
-      }, s * 1000)
-    })
-  }
-
-  async testAsync () {
-    const data = await this.sleep(3)
-    console.log(data)
-  }
-
-  getUserInfo(cb) {
-    const that = this
-    if (this.globalData.userInfo) {
-      return this.globalData.userInfo
+    globalData = {
+        userInfo: null
     }
-    wepy.getUserInfo({
-      success (res) {
-        that.globalData.userInfo = res.userInfo
-        cb && cb(res.userInfo)
-      }
-    })
-  }
+
+    constructor() {
+        super()
+        this.use('requestfix')
+    }
+
+    onLaunch() {
+        this.testAsync()
+    }
+
+    sleep(s) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('promise resolved')
+            }, s * 1000)
+        })
+    }
+
+    async testAsync() {
+        const data = await this.sleep(3)
+        console.log(data)
+    }
+
+    getUserInfo(cb) {
+        const that = this
+        if (this.globalData.userInfo) {
+            return this.globalData.userInfo
+        }
+        wepy.getUserInfo({
+            success(res) {
+                that.globalData.userInfo = res.userInfo
+                cb && cb(res.userInfo)
+            }
+        })
+    }
 }
 </script>

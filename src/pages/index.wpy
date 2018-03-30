@@ -1,156 +1,160 @@
 <style lang="less">
 .home-hd {
-  padding: 130rpx 0 75rpx;
-  .title {
-    font-size: 48rpx;
-  }
-  .login-btn {
-    background-color: #0099FF;
-    color: #fff;
-    width: 140rpx;
-    height: 44rpx;
-    line-height: 44rpx;
-    text-align: center;
-    border-radius: 22rpx;
-    margin:0 auto;
-  }
+    padding: 130rpx 0 75rpx;
+    .title {
+        font-size: 48rpx;
+    }
+    .login-btn {
+        background-color: #0099FF;
+        color: #fff;
+        width: 140rpx;
+        height: 44rpx;
+        line-height: 44rpx;
+        text-align: center;
+        border-radius: 22rpx;
+        margin: 0 auto;
+    }
 }
+
 .home-grids {
-  display: flex;
-  position: relative;
-  width: 100%;
-  text-align: center;
-  justify-content: flex-start;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  &::before, &::after {
-    content: " ";
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: #d9d9d9;
-  }
-  &::before {
-    right: 0;
-    height: 1px;
-    border-top: 1px solid #d9d9d9;
-    -webkit-transform-origin: 0 0;
-    transform-origin: 0 0;
-    -webkit-transform: scaleY(.5);
-    transform: scaleY(.5);
-  }
-  &::after {
-    width: 1px;
-    bottom: 0;
-    border-left: 1px solid #d9d9d9;
-    -webkit-transform-origin: 0 0;
-    transform-origin: 0 0;
-    -webkit-transform: scaleX(.5);
-    transform: scaleX(.5);
-  }
+    display: flex;
+    position: relative;
+    width: 100%;
+    text-align: center;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    &::before,
+    &::after {
+        content: " ";
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: #d9d9d9;
+    }
+    &::before {
+        right: 0;
+        height: 1px;
+        border-top: 1px solid #d9d9d9;
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+        -webkit-transform: scaleY(.5);
+        transform: scaleY(.5);
+    }
+    &::after {
+        width: 1px;
+        bottom: 0;
+        border-left: 1px solid #d9d9d9;
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+        -webkit-transform: scaleX(.5);
+        transform: scaleX(.5);
+    }
 }
+
 .grid-cell {
-  display: block;
-  width: 33.3%;
-  position: relative;
-  box-sizing: border-box;
-  padding: 40rpx 10rpx;
-  &::before, &::after {
-    content: " ";
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    color: #d9d9d9;
-  }
-  &::before {
-    top: 0;
-    width: 1px;
-    border-right: 1px solid #d9d9d9;
-    -webkit-transform-origin: 100% 0;
-    transform-origin: 100% 0;
-    -webkit-transform: scaleX(.5);
-    transform: scaleX(.5);
-  }
-  &::after {
-    left: 0;
-    height: 1px;
-    border-bottom: 1px solid #d9d9d9;
-    -webkit-transform-origin: 0 100%;
-    transform-origin: 0 100%;
-    -webkit-transform: scaleY(.5);
-    transform: scaleY(.5);
-  }
-  &__hd {
-    display: inline-block;
-    width: 90rpx;
-    height: 90rpx;
-    background-color: #333;
-  }
-  &__bd {
     display: block;
-    font-size: 36rpx;
-    line-height:1em;
-    margin-top: 10rpx;
-  }
+    width: 33.3%;
+    position: relative;
+    box-sizing: border-box;
+    padding: 40rpx 10rpx;
+    &::before,
+    &::after {
+        content: " ";
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        color: #d9d9d9;
+    }
+    &::before {
+        top: 0;
+        width: 1px;
+        border-right: 1px solid #d9d9d9;
+        -webkit-transform-origin: 100% 0;
+        transform-origin: 100% 0;
+        -webkit-transform: scaleX(.5);
+        transform: scaleX(.5);
+    }
+    &::after {
+        left: 0;
+        height: 1px;
+        border-bottom: 1px solid #d9d9d9;
+        -webkit-transform-origin: 0 100%;
+        transform-origin: 0 100%;
+        -webkit-transform: scaleY(.5);
+        transform: scaleY(.5);
+    }
+    &__hd {
+        display: inline-block;
+        width: 90rpx;
+        height: 90rpx;
+        background-color: #333;
+    }
+    &__bd {
+        display: block;
+        font-size: 36rpx;
+        line-height: 1em;
+        margin-top: 10rpx;
+    }
 }
 </style>
 <template>
-  <view class="container">
-    <view class="home-hd">
-      <view class="title">OneTeam</view>
-      <view class="login-btn">登录</view>
+    <view class="container">
+        <view class="home-hd">
+            <view class="title">OneTeam</view>
+            <view class="login-btn">登录</view>
+        </view>
+        <view class="home-grids">
+            <navigator url="weekly/list" class="grid-cell">
+                <view class="grid-cell__hd"></view>
+                <p class="grid-cell__bd">周报</p>
+            </navigator>
+            <navigator class="grid-cell">
+                <view class="grid-cell__hd"></view>
+                <p class="grid-cell__bd">周报</p>
+            </navigator>
+            <navigator class="grid-cell">
+                <view class="grid-cell__hd"></view>
+                <p class="grid-cell__bd">周报</p>
+            </navigator>
+            <navigator class="grid-cell">
+                <view class="grid-cell__hd"></view>
+                <p class="grid-cell__bd">周报</p>
+            </navigator>
+            <navigator class="grid-cell">
+                <view class="grid-cell__hd"></view>
+                <p class="grid-cell__bd">周报</p>
+            </navigator>
+            <navigator class="grid-cell">
+                <view class="grid-cell__hd"></view>
+                <p class="grid-cell__bd">周报</p>
+            </navigator>
+            <navigator class="grid-cell">
+                <view class="grid-cell__hd"></view>
+                <p class="grid-cell__bd">周报</p>
+            </navigator>
+            <navigator class="grid-cell">
+                <view class="grid-cell__hd"></view>
+                <p class="grid-cell__bd">周报</p>
+            </navigator>
+            <navigator url="weekly/list" class="grid-cell">
+                <view class="grid-cell__hd"></view>
+                <p class="grid-cell__bd">周报</p>
+            </navigator>
+        </view>
     </view>
-    <view class="home-grids">
-      <navigator url="weekly/list" class="grid-cell">
-        <view class="grid-cell__hd"></view>
-        <p class="grid-cell__bd">周报</p>
-      </navigator>
-      <navigator class="grid-cell">
-        <view class="grid-cell__hd"></view>
-        <p class="grid-cell__bd">周报</p>
-      </navigator>
-      <navigator class="grid-cell">
-        <view class="grid-cell__hd"></view>
-        <p class="grid-cell__bd">周报</p>
-      </navigator>
-      <navigator class="grid-cell">
-        <view class="grid-cell__hd"></view>
-        <p class="grid-cell__bd">周报</p>
-      </navigator>
-      <navigator class="grid-cell">
-        <view class="grid-cell__hd"></view>
-        <p class="grid-cell__bd">周报</p>
-      </navigator>
-      <navigator class="grid-cell">
-        <view class="grid-cell__hd"></view>
-        <p class="grid-cell__bd">周报</p>
-      </navigator>
-      <navigator class="grid-cell">
-        <view class="grid-cell__hd"></view>
-        <p class="grid-cell__bd">周报</p>
-      </navigator>
-      <navigator class="grid-cell">
-        <view class="grid-cell__hd"></view>
-        <p class="grid-cell__bd">周报</p>
-      </navigator>
-      <navigator url="weekly/list" class="grid-cell">
-        <view class="grid-cell__hd"></view>
-        <p class="grid-cell__bd">周报</p>
-      </navigator>
-    </view>
-  </view>
 </template>
 <script>
-  import wepy from 'wepy'
-  export default class Home extends wepy.page {
+import wepy from 'wepy'
+export default class Home extends wepy.page {
     config = {
-      navigationBarTitleText: '首页'
+        navigationBarTitleText: '首页'
     }
     components = {}
 
     data = {}
 
     methods = {}
-  }
+}
 </script>

@@ -1,128 +1,150 @@
 <style lang="less">
 .one-team-logo {
-  width: 168rpx;
-  height: 168rpx;
-  margin: 124rpx auto 60rpx;
-  image {
-    width: 100%;
-    height: 100%;
-  }
+    width: 168rpx;
+    height: 168rpx;
+    margin: 124rpx auto 60rpx;
+    image {
+        width: 100%;
+        height: 100%;
+    }
 }
+
 navigator {
-  display: inline;
+    display: inline;
 }
+
 .navigator-hover {
-  color: #09f;
-  opacity: 1;
+    color: #09f;
+    opacity: 1;
 }
 </style>
 <template>
-  <view class="container">
-    <view class="one-team-logo">
-        <image mode="aspectFit" src="{{logo}}" /></image>
+    <view class="container">
+        <view class="one-team-logo">
+            <image mode="aspectFit" src="{{logo}}" /></image>
+        </view>
+        <view class="container-bd">
+            <div class="list-cells">
+                <a class="list-cell" href="javascript:;">
+                    <div class="list-cell__bd">
+                        <input type="text" value="{{email}}" placeholder="邮箱" maxlength="11" placeholder-class="placeholder" class="input" @input="inputEmail" />
+                    </div>
+                </a>
+                <a class="list-cell" href="javascript:;">
+                    <div class="list-cell__bd">
+                        <input type="text" value="{{name}}" placeholder="用户昵称" placeholder-class="placeholder" class="input" @input="inputName" />
+                    </div>
+                </a>
+                <a class="list-cell" href="javascript:;">
+                    <div class="list-cell__bd">
+                        <input password value="{{pwd}}" placeholder="6-12位字母数字密码" placeholder-class="placeholder" class="input" @input="inputPwd" />
+                    </div>
+                </a>
+                <a class="list-cell" href="javascript:;">
+                    <div class="list-cell__bd">
+                        <input password value="{{pwd2}}" placeholder="确认密码" placeholder-class="placeholder" class="input" @input="confirmInputPwd" />
+                    </div>
+                </a>
+                <radio-group class="list-cell radio-group" @change="radioChange">
+                    <div class="list-cell__bd" wx:for="{{teamRadio}}" wx:key="{{index}}">
+                        <label class="radio">
+                            <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
+                        </label>
+                    </div>
+                </radio-group>
+                <a class="list-cell" href="javascript:;">
+                    <div class="list-cell__bd">
+                        <input type="text" value="{{teamVal}}" placeholder="{{intiveCode}}" placeholder-class="placeholder" class="input" @input="inputTeam" />
+                    </div>
+                </a>
+            </div>
+            <a href="javascript:;" class="btn btn_primary mt40 mb20" @tap="submit">注册</a>
+            <p>已经注册过了？
+                <navigator class="colorPrimary" hover-class="navigator-hover" url="/pages/user/login/index">直接登录</navigator>
+            </p>
+        </view>
+        <toast />
     </view>
-    <view class="container-bd">
-      <div class="list-cells">
-        <a class="list-cell" href="javascript:;">
-          <div class="list-cell__bd">
-            <input type="tel" value="{{email}}" placeholder="邮箱" maxlength="11" placeholder-class="placeholder" class="input" @input="inputEmail" />
-          </div>
-        </a>
-        <a class="list-cell" href="javascript:;">
-          <div class="list-cell__bd">
-            <input password type="text" value="{{name}}" placeholder="用户昵称" placeholder-class="placeholder" class="input" @input="inputName" />
-          </div>
-        </a>
-        <a class="list-cell" href="javascript:;">
-          <div class="list-cell__bd">
-            <input password type="text" value="{{pwd}}" placeholder="6-12位字母数字密码" placeholder-class="placeholder" class="input" @input="inputPwd" />
-          </div>
-        </a>
-        <a class="list-cell" href="javascript:;">
-          <div class="list-cell__bd">
-            <input password type="text" value="{{pwd2}}" placeholder="确认密码" placeholder-class="placeholder" class="input" @input="inputPwd" />
-          </div>
-        </a>
-        <radio-group class="list-cell radio-group" @change="radioChange">
-          <div class="list-cell__bd" wx:for="{{teamRadio}}" wx:key="{{index}}">
-            <label class="radio">
-              <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
-            </label>
-          </div>
-        </radio-group>
-        <a class="list-cell" href="javascript:;">
-
-          <div class="list-cell__bd">
-            <input password type="text" value="{{pwd2}}" placeholder="{{intiveCode}}" placeholder-class="placeholder" class="input" @input="inputPwd" />
-          </div>
-        </a>
-      </div>
-      <a href="javascript:;" class="btn btn_primary mt40 mb20" @tap="submit">注册</a>
-      <p>已经注册过了？ <navigator class="colorPrimary" hover-class="navigator-hover" url="/pages/user/login/index">直接登录</navigator></p>
-    </view>
-    <toast />
-  </view>
 </template>
 <script>
-  import wepy from 'wepy'
-  import {checkEmail, checkPwd} from '@/libs/util.js'
-  import Toast from 'wepy-com-toast'
-  // import {GET} from '@/libs/api.js'
-  export default class Register extends wepy.page {
+import wepy from 'wepy'
+import { checkEmail, checkPwd } from '@/libs/util.js'
+import Toast from 'wepy-com-toast'
+// import {GET} from '@/libs/api.js'
+export default class Register extends wepy.page {
     config = {
-      navigationBarTitleText: '注册'
+        navigationBarTitleText: '注册'
     }
 
     components = {
-      toast: Toast
+        toast: Toast
     }
 
     data = {
-      logo: '../../../images/logo.jpg',
-      email: '',
-      name: '',
-      pwd: '',
-      pwd2: '',
-      teamType: 'jion',
-      // intiveCode: '',
-      teamRadio: [
-        {name: 'jion', value: '加入团队', checked: 'true'},
-        {name: 'create', value: '创建团队'}
-      ]
+        logo: '../../../images/logo.jpg',
+        email: '',
+        name: '',
+        pwd: '',
+        pwd2: '',
+        teamType: 'jion',
+        // intiveCode: '',
+        teamRadio: [
+            { name: 'jion', value: '加入团队', checked: 'true' },
+            { name: 'create', value: '创建团队' }
+        ],
+        teamVal: ''
     }
 
     computed = {
-      intiveCode() {
-        return (this.teamType === 'jion') ? '团队邀请码' : '创建团队名称'
-      }
+        intiveCode() {
+            return (this.teamType === 'jion') ? '团队邀请码' : '创建团队名称'
+        }
     }
 
     methods = {
-      inputEmail(e) {
-        this.email = e.detail.value
-      },
-      inputName(e) {
-        this.name = e.detail.value
-      },
-      inputPwd(e) {
-        this.pwd = e.detail.value
-      },
-      radioChange(e) {
-        this.teamType = e.detail.value
-        console.log('radio发生change事件，携带value值为：', e.detail.value)
-      },
-      submit(e) {
-        console.log(checkEmail(this.email))
-        console.log(checkPwd(this.pwd))
-
-        let promise = this.$invoke('toast', 'show', {
-          title: '请输入正确的邮箱'
-        })
-
-        promise.then((d) => {
-          console.log('toast done')
-        })
-      }
+        inputEmail(e) {
+            this.email = e.detail.value
+        },
+        inputName(e) {
+            this.name = e.detail.value
+        },
+        inputPwd(e) {
+            this.pwd = e.detail.value
+        },
+        confirmInputPwd(e) {
+            this.pwd2 = e.detail.value
+        },
+        radioChange(e) {
+            this.teamType = e.detail.value
+            this.teamVal = ''
+            console.log('radio发生change事件，携带value值为：', e.detail.value)
+        },
+        inputTeam(e) {
+            this.teamVal = e.detail.value
+        },
+        submit(e) {
+            let toastText = this.check()
+            if (toastText) {
+                this.$invoke('toast', 'show', {
+                    title: toastText
+                })
+                return false
+            }
+        }
     }
-  }
+
+    check() {
+        let toastText
+        if (!checkEmail(this.email)) {
+            toastText = this.email ? '邮箱错误，请重新输入' : '请输入邮箱'
+        } else if (checkPwd(this.pwd)) {
+            toastText = this.pwd ? '请输入6位以上数字字母组合密码' : '请输入密码'
+        } else if (this.pwd2 !== this.pwd) {
+            toastText = this.pwd2 ? '两次密码不一致，请重新输入' : '请确认密码'
+        } else if (!this.teamVal) {
+            toastText = (this.teamType === 'jion') ? '请输入团队邀请码' : '请输入团队名称'
+        }
+        return toastText
+    }
+}
 </script>
