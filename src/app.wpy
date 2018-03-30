@@ -1,14 +1,6 @@
 <style lang="less">
-.container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
-}
+@import './assets/styles/style.less';
 </style>
-
 <script>
 import wepy from 'wepy'
 import 'wepy-async-function'
@@ -22,6 +14,11 @@ setStore(store)
 export default class extends wepy.app {
   config = {
     pages: [
+      // 'pages/logs/index',
+      // 'pages/my/index',
+      'pages/user/register/index',
+      'pages/user/login/index',
+      'pages/weekly/list',
       'pages/index'
     ],
     window: {
@@ -29,6 +26,25 @@ export default class extends wepy.app {
       navigationBarBackgroundColor: '#fff',
       navigationBarTitleText: 'WeChat',
       navigationBarTextStyle: 'black'
+    },
+    tabBar: {
+      color: '#222',
+      selectedColor: '#0099FF',
+      backgroundColor: '#fff',
+      list: [{
+        pagePath: 'pages/index',
+        text: '首页',
+        iconPath: './assets/images/cat.png',
+        selectedIconPath: './assets/images/cat.png'
+      }, {
+        pagePath: 'pages/index',
+        text: '通知',
+        iconPath: './assets/images/cat.png'
+      }, {
+        pagePath: 'pages/index',
+        text: '我的',
+        iconPath: './assets/images/cat.png'
+      }]
     }
   }
 

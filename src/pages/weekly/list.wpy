@@ -1,0 +1,82 @@
+<style lang="less">
+  .tip{
+      background-color: #FFFFFF;
+      padding: 30rpx;
+      margin: 20rpx;
+  }
+</style>
+<template>
+  <view class="container">
+    <view class="tip">
+        <htmlParser :parserName="name1" :parserContent.sync="content1"/>
+    </view>
+  </view>
+</template>
+<script>
+import wepy from 'wepy'
+import htmlParser from '../../components/htmlParser'
+
+export default class WeeklyList extends wepy.page {
+  config = {
+    navigationBarTitleText: '周报列表'
+  }
+
+  components = {
+    htmlParser: htmlParser
+  }
+
+  mixins = []
+
+  data = {
+    name1: 'myHtmlParserKiner1',
+    // content1: '##pppdsd\n'
+    content1: '<h3>本周工作成果总结，列举完成的任务以及进度，包括工作和学习。</h3><p>H5绑卡测试中</p><p>限时抢购后台开发联调完成</p><p>个人OKR制定</p><h3>下周的工作目标是什么？</h3><p>限时抢购提测</p><p>H5绑卡上线</p><h3>分享一篇本周有用的或有趣的文章</h3><p><a href="https://developer.mozilla.org/en-US/" rel="nofollow">https://developer.mozilla.org/en-US/</a>    MDN文档库，有需要的可以查一些资料。想做翻译的也是个不错的选择。<br></p><h3>本周OKR进度说明！</h3><p>NPM vue-ls源码学习</p><p>node rap框架规划更新</p>'
+  }
+
+  methods = {
+  }
+
+  events = {
+  }
+  async onLoad() {
+    // this.$invoke('htmlParser', 'htmlParserNotice')
+  //     var self = this;
+  //     wx.request({
+  //         url: "",
+  //         method: "POST",
+  //         data:{
+  //         }
+  //     }).then((data)=>{
+  //         self.content1 = data.data.goodsDes;
+  //         //注意，在此处修改了content2之后，需要手动调用$apply()方法更新数据
+  //         self.$apply();
+  //         //调用通知接口通知组件更新数据
+  //         this.$invoke('htmlParser', 'htmlParserNotice');
+  //     });
+  //     wx.request({
+  //         url: "访问接口地址",
+  //         method: "POST",
+  //         data:{
+  //         }
+  //     }).then((data)=>{
+  //         self.content2 = "<text style='color: red;'>新</text>"+data.data.goodsDes;
+  //         //注意，在此处修改了content2之后，需要手动调用$apply()方法更新数据
+  //         self.$apply();
+  //         //调用通知接口通知组件更新数据
+  //         this.$invoke('htmlParser2', 'htmlParserNotice');
+  //     });
+  //     wx.request({
+  //         url: "访问接口地址",
+  //         method: "POST",
+  //         data:{
+  //         }
+  //     }).then((data)=>{
+  //         self.content3 = data.data.goodsDes;
+  //         //注意，在此处修改了content2之后，需要手动调用$apply()方法更新数据
+  //         self.$apply();
+  //         //调用通知接口通知组件更新数据
+  //         this.$invoke('htmlParser3', 'htmlParserNotice');
+  //     });
+  }
+}
+</script>
