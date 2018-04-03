@@ -23,24 +23,25 @@
             <div class="list-cells">
                 <a class="list-cell" href="javascript:;">
                     <div class="list-cell__bd">
-                        <input type="tel" value="{{email}}" placeholder="邮箱" maxlength="11" placeholder-class="placeholder" class="input" @input="inputEmail" />
+                        <input type="tel" value="{{email}}" placeholder="邮箱" placeholder-class="placeholder" class="input" @input="inputEmail" />
                     </div>
                 </a>
                 <a class="list-cell" href="javascript:;">
                     <div class="list-cell__bd">
-                        <input password value="{{pwd}}" placeholder="密码" placeholder-class="placeholder" class="input" @input="inputPwd" />
+                        <input password value="{{pwd}}" placeholder="密码" maxlength="12" placeholder-class="placeholder" class="input" @input="inputPwd" />
                     </div>
                 </a>
             </div>
             <navigator class="forget-code colorPrimary" hover-class="navigator-hover" url="">忘记登录密码</navigator>
             <a href="javascript:;" class="btn btn_primary mt40 mb20" @tap="submit">登录</a>
             <p>还没有加入One Team?
-                <navigator style="display: inline" class="colorPrimary" hover-class="navigator-hover" url="/pages/user/register/index">点击这里</navigator>加入吧！</p>
+                <navigator open-type="redirect" style="display: inline" class="colorPrimary" hover-class="navigator-hover" url="/pages/user/register/index">点击这里</navigator>加入吧！</p>
         </view>
         <toast />
     </view>
 </template>
 <script>
+/* global wx */
 import wepy from 'wepy'
 import { checkEmail, checkPwd } from '@/libs/util.js'
 import Toast from 'wepy-com-toast'
@@ -75,21 +76,25 @@ export default class Login extends wepy.page {
                 })
                 return false
             }
+            let params = {
+                eMail: this.email,
+                userPassword: this.pwd
+            }
+
+            this.$parent.GET('login', params).then((res) => {
+                wx.setStorageSync('token', res.token)
+                let source = wx.getStorageSync('source')
+                if (!source) {
+                    wx.switchTab({
+                        url: '/pages/index'
+                    })
+                } else {
+                    wx.navigateBack({
+                        delta: 1
+                    })
+                }
+            })
         }
-        // request () {
-        //   let self = this
-        //   let i = 10
-        //   let map = ['MA==', 'MQo=', 'Mg==', 'Mw==', 'NA==', 'NQ==', 'Ng==', 'Nw==', 'OA==', 'OQ==']
-        //   while (i--) {
-        //     wepy.request({
-        //       url: 'https://www.madcoder.cn/tests/sleep.php?time=1&t=css&c=' + map[i] + '&i=' + i,
-        //       success: function (d) {
-        //         self.netrst += d.data + '.'
-        //         self.$apply()
-        //       }
-        //     })
-        //   }
-        // }
     }
     check() {
         let toastText

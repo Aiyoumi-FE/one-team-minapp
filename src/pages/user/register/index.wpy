@@ -27,22 +27,22 @@ navigator {
             <div class="list-cells">
                 <a class="list-cell" href="javascript:;">
                     <div class="list-cell__bd">
-                        <input type="text" value="{{email}}" placeholder="邮箱" maxlength="11" placeholder-class="placeholder" class="input" @input="inputEmail" />
+                        <input type="text" value="{{email}}" placeholder="邮箱" placeholder-class="placeholder" class="input" @input="inputEmail" />
                     </div>
                 </a>
                 <a class="list-cell" href="javascript:;">
                     <div class="list-cell__bd">
-                        <input type="text" value="{{name}}" placeholder="用户昵称" placeholder-class="placeholder" class="input" @input="inputName" />
+                        <input type="text" value="{{nickname}}" placeholder="用户昵称" placeholder-class="placeholder" class="input" @input="inputName" />
                     </div>
                 </a>
                 <a class="list-cell" href="javascript:;">
                     <div class="list-cell__bd">
-                        <input password value="{{pwd}}" placeholder="6-12位字母数字密码" placeholder-class="placeholder" class="input" @input="inputPwd" />
+                        <input password value="{{pwd}}" placeholder="6-12位字母数字密码" maxlength="12" placeholder-class="placeholder" class="input" @input="inputPwd" />
                     </div>
                 </a>
                 <a class="list-cell" href="javascript:;">
                     <div class="list-cell__bd">
-                        <input password value="{{pwd2}}" placeholder="确认密码" placeholder-class="placeholder" class="input" @input="confirmInputPwd" />
+                        <input password value="{{pwd2}}" placeholder="确认密码" maxlength="12" placeholder-class="placeholder" class="input" @input="confirmInputPwd" />
                     </div>
                 </a>
                 <radio-group class="list-cell radio-group" @change="radioChange">
@@ -60,15 +60,16 @@ navigator {
             </div>
             <a href="javascript:;" class="btn btn_primary mt40 mb20" @tap="submit">注册</a>
             <p>已经注册过了？
-                <navigator class="colorPrimary" hover-class="navigator-hover" url="/pages/user/login/index">直接登录</navigator>
+                <navigator open-type="redirect" class="colorPrimary" hover-class="navigator-hover" url="/pages/user/login/index">直接登录</navigator>
             </p>
         </view>
         <toast />
     </view>
 </template>
 <script>
+/* global wx */
 import wepy from 'wepy'
-import { checkEmail, checkPwd } from '@/libs/util.js'
+import { checkEmail, checkPwd, checkName } from '@/libs/util.js'
 import Toast from 'wepy-com-toast'
 // import {GET} from '@/libs/api.js'
 export default class Register extends wepy.page {
@@ -83,13 +84,13 @@ export default class Register extends wepy.page {
     data = {
         logo: '../../../images/logo.jpg',
         email: '',
-        name: '',
+        nickname: '',
         pwd: '',
         pwd2: '',
-        teamType: 'jion',
+        teamType: 'join',
         // intiveCode: '',
         teamRadio: [
-            { name: 'jion', value: '加入团队', checked: 'true' },
+            { name: 'join', value: '加入团队', checked: 'true' },
             { name: 'create', value: '创建团队' }
         ],
         teamVal: ''
@@ -97,7 +98,7 @@ export default class Register extends wepy.page {
 
     computed = {
         intiveCode() {
-            return (this.teamType === 'jion') ? '团队邀请码' : '创建团队名称'
+            return (this.teamType === this.teamRadio[0].name) ? '团队邀请码' : '创建团队名称'
         }
     }
 
@@ -106,7 +107,7 @@ export default class Register extends wepy.page {
             this.email = e.detail.value
         },
         inputName(e) {
-            this.name = e.detail.value
+            this.nickname = e.detail.value
         },
         inputPwd(e) {
             this.pwd = e.detail.value
@@ -130,19 +131,39 @@ export default class Register extends wepy.page {
                 })
                 return false
             }
+            let params = {
+                eMail: this.email,
+                nickName: this.nickname,
+                userPassword: this.pwd,
+                confirmPassword: this.pwd2
+            }
+            if (this.teamType === this.teamRadio[0].name) {
+                params.teamName = this.teamVal
+            } else {
+                params.teamId = this.teamVal
+            }
+
+            this.$parent.GET('register', params).then((res) => {
+                wx.setStorageSync('token', res.token)
+                wx.switchTab({
+                    url: '/pages/index'
+                })
+            })
         }
     }
 
     check() {
         let toastText
         if (!checkEmail(this.email)) {
-            toastText = this.email ? '邮箱错误，请重新输入' : '请输入邮箱'
-        } else if (checkPwd(this.pwd)) {
+            toastText = this.email ? '邮箱格式错误，请重新输入' : '请输入邮箱'
+        } else if (!checkName(this.nickname)) {
+            toastText = this.nickname ? '昵称格式错误' : '请输入昵称'
+        } else if (!checkPwd(this.pwd)) {
             toastText = this.pwd ? '请输入6位以上数字字母组合密码' : '请输入密码'
         } else if (this.pwd2 !== this.pwd) {
-            toastText = this.pwd2 ? '两次密码不一致，请重新输入' : '请确认密码'
+            toastText = this.pwd2 ? '两次密码不一致，请重新输入' : '请输入确认密码'
         } else if (!this.teamVal) {
-            toastText = (this.teamType === 'jion') ? '请输入团队邀请码' : '请输入团队名称'
+            toastText = (this.teamType === this.teamRadio[0].name) ? '请输入团队邀请码' : '请输入团队名称'
         }
         return toastText
     }
