@@ -9,6 +9,14 @@
     }
 }
 
+.container-bd {
+    padding: 0 40rpx;
+}
+
+.list-cell::after {
+    left: 0
+}
+
 navigator {
     display: inline;
 }
@@ -25,26 +33,26 @@ navigator {
         </view>
         <view class="container-bd">
             <div class="list-cells">
-                <a class="list-cell" href="javascript:;">
+                <view class="list-cell">
                     <div class="list-cell__bd">
                         <input type="text" value="{{email}}" placeholder="邮箱" placeholder-class="placeholder" class="input" @input="inputEmail" />
                     </div>
-                </a>
-                <a class="list-cell" href="javascript:;">
+                </view>
+                <view class="list-cell">
                     <div class="list-cell__bd">
                         <input type="text" value="{{nickname}}" placeholder="用户昵称" placeholder-class="placeholder" class="input" @input="inputName" />
                     </div>
-                </a>
-                <a class="list-cell" href="javascript:;">
+                </view>
+                <view class="list-cell">
                     <div class="list-cell__bd">
                         <input password value="{{pwd}}" placeholder="6-12位字母数字密码" maxlength="12" placeholder-class="placeholder" class="input" @input="inputPwd" />
                     </div>
-                </a>
-                <a class="list-cell" href="javascript:;">
+                </view>
+                <view class="list-cell">
                     <div class="list-cell__bd">
                         <input password value="{{pwd2}}" placeholder="确认密码" maxlength="12" placeholder-class="placeholder" class="input" @input="confirmInputPwd" />
                     </div>
-                </a>
+                </view>
                 <radio-group class="list-cell radio-group" @change="radioChange">
                     <div class="list-cell__bd" wx:for="{{teamRadio}}" wx:key="{{index}}">
                         <label class="radio">
@@ -52,13 +60,13 @@ navigator {
                         </label>
                     </div>
                 </radio-group>
-                <a class="list-cell" href="javascript:;">
+                <view class="list-cell">
                     <div class="list-cell__bd">
                         <input type="text" value="{{teamVal}}" placeholder="{{intiveCode}}" placeholder-class="placeholder" class="input" @input="inputTeam" />
                     </div>
-                </a>
+                </view>
             </div>
-            <a href="javascript:;" class="btn btn_primary mt40 mb20" @tap="submit">注册</a>
+            <view class="btn btn_primary mt40 mb20" @tap="submit">注册</view>
             <p>已经注册过了？
                 <navigator open-type="redirect" class="colorPrimary" hover-class="navigator-hover" url="/pages/user/login/index">直接登录</navigator>
             </p>

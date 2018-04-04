@@ -4,6 +4,7 @@
 <script>
 import wepy from 'wepy'
 import 'wepy-async-function'
+import Promise from 'promise-polyfill'
 
 import { setStore } from 'wepy-redux'
 import configStore from './store'
@@ -16,9 +17,12 @@ export default class extends wepy.app {
         pages: [
             // 'pages/logs/index',
             // 'pages/my/index',
+            // 'pages/weekly/list',
+            'pages/weekly/answers',
             'pages/user/register/index',
             'pages/user/login/index',
-            'pages/weekly/list',
+            // 'pages/weekly/list',
+            // 'pages/weekly/answers',
             'pages/index'
         ],
         window: {
@@ -56,6 +60,7 @@ export default class extends wepy.app {
     constructor() {
         super()
         this.use('requestfix')
+        this.use('promisify')
     }
 
     onLaunch() {
@@ -88,8 +93,7 @@ export default class extends wepy.app {
         })
     }
 
-    GET
-(urlName, data, showLoading) {
+    GET(urlName, data, showLoading) {
         return request('GET', urlName, data, showLoading)
     }
 

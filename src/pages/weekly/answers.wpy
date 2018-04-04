@@ -1,3 +1,64 @@
+<style lang="less">
+.tab-cells {
+    width: 100%;
+    display: flex;
+    border-bottom: 1px solid #e4e4e4;
+    font-size: 28rpx;
+    .tab-cell {
+        flex: 1;
+        text-align: center;
+        line-height: 2em;
+        padding: 10rpx 0;
+        border-bottom: 2px solid #fff;
+        &.cur {
+            border-bottom-color: #199ed8;
+        }
+    }
+}
+
+.textarea {
+    display: block;
+    padding: 20rpx;
+    height: 700rpx;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 32rpx;
+}
+
+.fixed-bottm {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100rpx;
+}
+</style>
 <template>
-  <div>些周报</div>
+    <view class="container">
+        <view class="tab-cells">
+            <view class="tab-cell cur">个人周报</view>
+            <view class="tab-cell">团队总结</view>
+        </view>
+        <textarea class="textarea" value="{{myWeeklyDesc}}" placeholder="写点什么好呢......" maxlength="-1" auto-focus="true" @input="getMyweekly"></textarea>
+        <view class="fixed-bottm">
+            <view class="btn btn_primary" @tap="submit">保存</view>
+        </view>
+    </view>
 </template>
+<script>
+import wepy from 'wepy'
+export default class weeklyAnswer extends wepy.page {
+    config = {
+        navigationBarTitleText: '本周周报'
+    }
+    data = {
+        myWeeklyDesc: ''
+    }
+    methods = {
+        getMyweekly(e) {
+            console.log(e.detail.value)
+            this.myWeeklyDesc = e.detail.value
+        }
+    }
+}
+</script>

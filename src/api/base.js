@@ -1,3 +1,4 @@
+import wepy from 'wepy'
 import { API } from './index'
 
 function request(method, urlName, data, showLoading = true) {
@@ -6,12 +7,14 @@ function request(method, urlName, data, showLoading = true) {
         'Authorization': `Bearer ${wx.getStorageSync('token')}`,
         'content-type': contentType
     }
+    let url = wepy.$appConfig.baseUrl + API[urlName]
+
     wx.showLoading({
         title: '加载中'
     })
     return new Promise((resolve, reject) => {
         wx.request({
-            url: API[urlName],
+            url,
             data,
             header: header,
             method: method,

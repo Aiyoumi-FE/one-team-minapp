@@ -1,6 +1,7 @@
 <style lang="less">
 .home-hd {
     padding: 130rpx 0 75rpx;
+    text-align: center;
     .title {
         font-size: 48rpx;
     }
